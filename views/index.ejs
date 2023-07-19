@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Review App</title>
+    <link rel="stylesheet" href="/public/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+    />
+    <link rel="stylesheet" href="/public/css/login.css" />
+  </head>
+  <body>
+    <div id="large-th">
+      <div class="container">
+        <h1>Book Reviews</h1>
+        <main>
+          <button class="btn" onclick="addBook(event)">Add Book Review</button>
+          <div class="form-item">
+            <div class="select-dropdown">
+              <select class="big" onchange="selectPress(event)" id="select-d">
+                <option>No Filter</option>
+                <option>Ascending Order</option>
+                <option>Descending Order</option>
+              </select>
+            </div>
+          </div>
+        </main>
+        <form action="/asc" method="post" style="display: none">
+          <button id="ascending-btn"></button>
+        </form>
+        <form action="/desc" method="post" style="display: none">
+          <button id="descending-btn"></button>
+        </form>
+        <div id="list-th">
+          <% for (var i=0; i < ReviewList.length; i++) {%>
+          <div class="book read">
+            <a href="/description/<%=ReviewList[i].id%>">
+              <div class="cover">
+                <img src="<%=ReviewList[i].BookImage%>" />" alt="book-name" />
+              </div>
+              <div class="description">
+                <p class="title">
+                  <%=ReviewList[i].BookName%>">
+                  <span class="author"> <%=ReviewList[i].BookAuthor%>"> </span>
+                </p>
+              </div>
+            </a>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <main id="add-form-container" style="display: none">
+      <form id="book-add-form" method="post" action="/submitBookReview">
+        <div id="book-add-title">Add a Book</div>
+        <label class="book-add-label">Book Title</label>
+        <input name="BookTitle" type="text" class="book-add-input" />
+
+        <label class="book-add-label">Book Author</label>
+        <input name="BookAuthor" type="text" class="book-add-input" />
+
+        <label class="book-add-label">Book Image Link</label>
+        <input name="BookImage" type="text" class="book-add-input" />
+
+        <label class="book-add-label">Book Description</label>
+        <textarea
+          name="Description"
+          rows="8"
+          type="text"
+          class="book-add-input"
+          cols="10"
+        ></textarea>
+        <div id="btn-holder">
+          <button class="form-btn" type="submit">Submit</button>
+          <button class="form-btn" onclick="addBook(event)" type="button">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </main>
+    <script defer src="/public/js/index.js"></script>
+  </body>
+</html>
