@@ -69,4 +69,17 @@ router.route("/desc").post((req, res) => {
   );
 });
 
+router.route("/description/:id").get((req, res) => {
+  db.query(
+    `SELECT * FROM booksreviewdb.books where id = ${req.params.id}`,
+    (error, result) => {
+      res.render("description", {
+        Data: {
+          ...result[0],
+        },
+      });
+    }
+  );
+});
+
 module.exports = router;

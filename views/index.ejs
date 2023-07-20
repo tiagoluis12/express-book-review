@@ -2,19 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Review App</title>
-    <link rel="stylesheet" href="/public/css/style.css" />
+    <link rel="stylesheet" href="../public/css/style.css" />
     <link
       rel="stylesheet"
       href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
     />
-    <link rel="stylesheet" href="/public/css/login.css" />
+    <link rel="stylesheet" href="../public/css/login.css" />
   </head>
   <body>
     <div id="large-th">
       <div class="container">
-        <h1>Book Reviews</h1>
+        <h1>Books Reviews</h1>
         <main>
           <button class="btn" onclick="addBook(event)">Add Book Review</button>
           <div class="form-item">
@@ -34,16 +35,16 @@
           <button id="descending-btn"></button>
         </form>
         <div id="list-th">
-          <% for (var i=0; i < ReviewList.length; i++) {%>
+          <% for(var i=0; i < ReviewList.length; i++) {%>
           <div class="book read">
             <a href="/description/<%=ReviewList[i].id%>">
               <div class="cover">
-                <img src="<%=ReviewList[i].BookImage%>" />" alt="book-name" />
+                <img src="<%=ReviewList[i].BookImage%>" alt="book-name" />
               </div>
               <div class="description">
                 <p class="title">
-                  <%=ReviewList[i].BookName%>">
-                  <span class="author"> <%=ReviewList[i].BookAuthor%>"> </span>
+                  <%=ReviewList[i].BookName%>
+                  <span class="author"> <%=ReviewList[i].BookAuthor %> </span>
                 </p>
               </div>
             </a>
@@ -72,6 +73,7 @@
           class="book-add-input"
           cols="10"
         ></textarea>
+
         <div id="btn-holder">
           <button class="form-btn" type="submit">Submit</button>
           <button class="form-btn" onclick="addBook(event)" type="button">
@@ -80,6 +82,6 @@
         </div>
       </form>
     </main>
-    <script defer src="/public/js/index.js"></script>
+    <script defer src="../public/js/index.js"></script>
   </body>
 </html>
