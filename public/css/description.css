@@ -1,0 +1,171 @@
+.main-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+#sub-container {
+  width: 70%;
+  height: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+#sub-container img {
+  width: 450px;
+  height: 600px;
+  margin-right: 30px;
+}
+#book-name {
+  font-weight: bolder;
+  font-size: 36px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px 0;
+}
+#book-description {
+  font-size: 18px;
+  font-weight: 400;
+  color: #333;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+#book-author {
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: 400;
+  color: #333;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+#book-author span {
+  font-weight: bold;
+  margin-right: 10px;
+}
+#book-rating {
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: 400;
+  color: #333;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+#book-rating span {
+  font-weight: bold;
+  margin-right: 10px;
+}
+svg {
+  width: 3rem;
+  height: 3rem;
+  padding: 0.15rem;
+}
+
+#delete-btn {
+  position: fixed;
+  top: 10px;
+  right: 1%;
+}
+#delete-btn button {
+  order: none;
+  border-radius: 5px;
+  width: 100px;
+  padding: 10px 0;
+  color: #fefefe;
+  background-color: #ff385c;
+}
+
+#comments {
+  width: 100%;
+  height: 120px;
+}
+#comments header {
+  font-weight: bold;
+  font-size: 28px;
+  padding: 15px 2%;
+  padding-left: 5%;
+}
+#comments footer {
+  width: 100%;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+#comments input#review-input {
+  padding: 15px;
+  width: 82%;
+  border-radius: 8px;
+  margin-left: 5%;
+}
+#comments-view {
+  display: flex;
+  width: 80%;
+  border-radius: 8px;
+  padding: 25px 2%;
+  background-color: rgb(239, 239, 239);
+  font-weight: bold;
+  margin-bottom: 8px;
+  margin-left: 5%;
+}
+
+/* hide radio buttons */
+
+input[name="star"] {
+  display: inline-block;
+  width: 0;
+  opacity: 0;
+  margin-left: -2px;
+}
+
+/* hide source svg */
+
+.star-source {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  margin-top: 20px;
+}
+
+/* set initial color to transparent so fill is empty*/
+
+.star {
+  color: transparent;
+  transition: color 0.2s ease-in-out;
+}
+
+/* set direction to row-reverse so 5th star is at the end and ~ can be used to fill all sibling stars that precede last starred element*/
+
+.star-container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
+label:hover ~ label .star,
+svg.star:hover,
+input[name="star"]:focus ~ label .star,
+input[name="star"]:checked ~ label .star {
+  color: #d62a9d;
+}
+
+input[name="star"]:checked + label .star {
+  animation: starred 0.5s;
+}
+
+input[name="star"]:checked + label {
+  animation: scaleup 1s;
+}
+
+@keyframes scaleup {
+  from {
+    transform: scale(1.2);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes starred {
+  from {
+    color: #600040;
+  }
+
+  to {
+    color: #d62a9d;
+  }
+}

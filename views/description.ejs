@@ -6,5 +6,177 @@
     <title>Document</title>
     <link rel="stylesheet" href="/public/css/description.css" />
   </head>
-  <body></body>
+  <body>
+    <main class="main-container">
+      <div id="sub-container">
+        <img src="<%=Data.BookImage %>" alt="book image" id="book-image" />
+        <div id="description-holder">
+          <div id="book-name"><%=Data.BookName %></div>
+          <div id="book-description"><%=Data.BookDescription %></div>
+          <div id="book-author">
+            <span>Author of the Book:</span><%=Data.BookAuthor %>
+          </div>
+          <div id="book-rating"><span>Ratings: </span>Rating</div>
+          <div class="star-source">
+            <svg>
+              <linearGradient
+                x1="50%"
+                y1="5.41294643%"
+                x2="87.5527344%"
+                y2="65.4921875%"
+                id="grad"
+              >
+                <stop stop-color="#bf209f" offset="0%"></stop>
+                <stop stop-color="#d62a9d" offset="60%"></stop>
+                <stop stop-color="#ED009E" offset="100%"></stop>
+              </linearGradient>
+              <symbol id="star" viewBox="153 89 106 108">
+                <polygon
+                  id="star-shape"
+                  stroke="url(#grad)"
+                  stroke-width="5"
+                  fill="currentColor"
+                  points="206 162.5 176.610737 185.45085 189.356511 150.407797 158.447174 129.54915 195.713758 130.842203 206 95 216.286242 130.842203 253.552826 129.54915 222.643489 150.407797 235.389263 185.45085"
+                ></polygon>
+              </symbol>
+            </svg>
+          </div>
+          <form method="post" action="/addRating">
+            <div class="star-container">
+              <input
+                type="radio"
+                name="star"
+                id="five"
+                value="5"
+                onclick="submitRating(event)"
+              />
+              <label for="five">
+                <svg class="star">
+                  <use xlink:href="#star" />
+                </svg>
+              </label>
+              <input
+                type="radio"
+                name="star"
+                id="four"
+                value="4"
+                onclick="submitRating(event)"
+              />
+              <label for="four">
+                <svg class="star">
+                  <use xlink:href="#star" />
+                </svg>
+              </label>
+              <input
+                type="radio"
+                name="star"
+                id="three"
+                value="3"
+                onclick="submitRating(event)"
+              />
+              <label for="three">
+                <svg class="star">
+                  <use xlink:href="#star" />
+                </svg>
+              </label>
+              <input
+                type="radio"
+                name="star"
+                id="two"
+                value="2"
+                onclick="submitRating(event)"
+              />
+              <label for="two">
+                <svg class="star">
+                  <use xlink:href="#star" />
+                </svg>
+              </label>
+              <input
+                type="radio"
+                name="star"
+                id="one"
+                value="1"
+                onclick="submitRating(event)"
+              />
+              <label for="one">
+                <svg class="star">
+                  <use xlink:href="#star" />
+                </svg>
+              </label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+    <main id="comments">
+      <header>Review Comments</header>
+      <main id="comments-view"></main>
+      <footer>
+        <input
+          type="text"
+          id="review-input"
+          placeholder="Write yout review here.."
+          onkeydown="addComment()"
+        />
+      </footer>
+    </main>
+    <form id="delete-btn" method="post" action="/delete">
+      <input style="visibility: hidden" name="id" value="<%=Data.id%>" />
+      <button type="submit">Delete</button>
+    </form>
+    <input value="<%=Data.id%>" id="book-id" hidden />
+
+    <script>
+      const review = document.getElementById("review");
+      const commentInput = document.getElementById("review-input");
+      const radioBtn = document.getElementById("input[name-start]");
+      const bookId = document.getElementById("book-id").value;
+
+      const submitRating = async () => {
+        alert("submit rating");
+        const data = {
+          bookId,
+          rating: event.target.value,
+        };
+
+        console.log("the rating body is ", data);
+
+        const res = await fetch("http://localhost:8081/addRating", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        const resData = await res.json();
+        console.log(resData.message);
+        alert(resData.message);
+      };
+
+      const addComment = async (e) => {
+        if (event.key === "Enter") {
+          const data = {
+            bookId,
+            review: event.target.value,
+          };
+          event.target.value = "";
+
+          const res = await fetch("http://localhost:8081/addReview", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+          console.log(res.status);
+          if (res.ok) {
+            location.reload();
+          }
+        }
+      };
+    </script>
+  </body>
 </html>

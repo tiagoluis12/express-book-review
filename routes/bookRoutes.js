@@ -82,4 +82,44 @@ router.route("/description/:id").get((req, res) => {
   );
 });
 
+router.route("/delete").post((req, res) => {
+  db.query(
+    `DELETE FROM booksreviewdb.books where id=${parseInt(req.body.id)}`,
+    (error, result) => {
+      db.query(`SELECT * FROM booksreviewdb.books`, (error, result) => {
+        return res.render("index", { ReviewList: result });
+      });
+    }
+  );
+});
+
+router.route("/addRating").post((req, res) => {
+  const { bookId, rating } = req.body;
+  db.query(
+    `INSERT INTO booksreviewdb.rating (bookId, rating) VALUES ("${bookId}, "${rating})`,
+    (error, result) => {
+      if (error === null) {
+        return res.json({ message: "Rating updated to the database" });
+      } else {
+        return res.json({ message: "Rating did not update to the database" });
+      }
+    }
+  );
+});
+
+router.route("/addReview").post((req, res) => {
+  const { bookId, review } = req.body;
+  console.log(req.body);
+  db.query(
+    `INSERT INTO booksreviewdb.review (bookId, review) VALUES ("${bookId}", "${review}")`,
+    (error, result) => {
+      if (error === null) {
+        return res.json({ message: "Review updated to the database" });
+      } else {
+        return res.json({ message: "Review did not update to the database" });
+      }
+    }
+  );
+});
+
 module.exports = router;
